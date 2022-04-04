@@ -147,7 +147,7 @@ if __name__ == "__main__":
     excel()
 
     # create a Form label
-    heading = Label(root, text="Form", bg="light green")
+    heading = Label(root, text="T.A.R.S", bg="light green")
 
     # create a Name label
     name = Label(root, text="EMP_ID", bg="light green")
