@@ -1,7 +1,7 @@
 import pyodbc
 
 conn = pyodbc.connect(
-    r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\strau\OneDrive\Desktop\Inventory1.accdb;')
+    r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\Bishop Ross\PycharmProjects\CEIS400\Inventory1.accdb;')
 cursor = conn.cursor()
 cursor.execute('select * from inventory')
 

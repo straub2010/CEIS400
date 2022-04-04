@@ -1,3 +1,7 @@
+# Practice file//////////////////////////
+# This is the file where we test our functions and modules to ensure everything is working
+# properly and we do not break our main project files
+
 # import openpyxl and tkinter modules
 from openpyxl import *
 from tkinter import *
@@ -5,7 +9,7 @@ from tkinter import *
 # globally declare wb and sheet variable
 
 # opening the existing excel file
-wb = load_workbook('C:\\Users\\Admin\\Desktop\\excel.xlsx')
+wb = load_workbook('C:\\Users\\Bishop Ross\\PycharmProjects\\CEIS400\\Book1.xlsx')
 
 # create the sheet object
 sheet = wb.active
@@ -24,13 +28,13 @@ def excel():
 
     # write given data to an excel spreadsheet
     # at particular location
-    sheet.cell(row=1, column=1).value = "Name"
-    sheet.cell(row=1, column=2).value = "Course"
-    sheet.cell(row=1, column=3).value = "Semester"
-    sheet.cell(row=1, column=4).value = "Form Number"
-    sheet.cell(row=1, column=5).value = "Contact Number"
-    sheet.cell(row=1, column=6).value = "Email id"
-    sheet.cell(row=1, column=7).value = "Address"
+    sheet.cell(row=1, column=1).value = "EMP_ID"
+    sheet.cell(row=1, column=2).value = "First Name"
+    sheet.cell(row=1, column=3).value = "Last Name"
+    sheet.cell(row=1, column=4).value = "EMP_Level"
+    sheet.cell(row=1, column=5).value = "Items_Assigned"
+    sheet.cell(row=1, column=6).value = "EMP_Position"
+    sheet.cell(row=1, column=7).value = "Item_Name"
 
 
 # Function to set focus (cursor)
@@ -117,7 +121,7 @@ def insert():
         sheet.cell(row=current_row + 1, column=7).value = address_field.get()
 
         # save the file
-        wb.save('C:\\Users\\Admin\\Desktop\\excel.xlsx')
+        wb.save('C:\\Users\\Bishop Ross\\PycharmProjects\\CEIS400\\Book1.xlsx')
 
         # set focus on the name_field box
         name_field.focus_set()
@@ -146,25 +150,25 @@ if __name__ == "__main__":
     heading = Label(root, text="Form", bg="light green")
 
     # create a Name label
-    name = Label(root, text="Name", bg="light green")
+    name = Label(root, text="EMP_ID", bg="light green")
 
     # create a Course label
-    course = Label(root, text="Course", bg="light green")
+    course = Label(root, text="First_Name", bg="light green")
 
     # create a Semester label
-    sem = Label(root, text="Semester", bg="light green")
+    sem = Label(root, text="Last_Name", bg="light green")
 
     # create a Form No. label
-    form_no = Label(root, text="Form No.", bg="light green")
+    form_no = Label(root, text="EMP_Level", bg="light green")
 
     # create a Contact No. label
-    contact_no = Label(root, text="Contact No.", bg="light green")
+    contact_no = Label(root, text="Items_Assigned", bg="light green")
 
     # create a Email id label
-    email_id = Label(root, text="Email id", bg="light green")
+    email_id = Label(root, text="EMP_Position", bg="light green")
 
     # create a address label
-    address = Label(root, text="Address", bg="light green")
+    address = Label(root, text="Item_Name", bg="light green")
 
     # grid method is used for placing
     # the widgets at respective positions
