@@ -1,5 +1,5 @@
 # File for the class definition for the Inventory object
-# B Ross dd
+# B Ross ddd
 
 class Inventory:
     def __init__(self, itemName, inOut, assignTo, clearanceLevel, serialNumber):
