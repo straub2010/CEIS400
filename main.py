@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import Logs
-# B Ross
+# B Ross d
 # This is the main file that houses all of the functionality for the GUI and application.
 # This file also contains the formatting code for editing how the objects and functions appear on the
 # GUI window
