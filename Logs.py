@@ -2,7 +2,7 @@ import pyodbc
 
 
 # This file contains the function to retrieve information from our access database while utilizing the GUI
-
+# B Ross
 
 # This is Straub's directory path for the access file: C:\Users\strau\OneDrive\Desktop\Inventory1.accdb
 # This is Bishop's directory path for the access file: C:\Users\Bishop Ross\PycharmProjects\CEIS400\Inventory1.accdb
