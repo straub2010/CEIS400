@@ -56,13 +56,53 @@ def login():
     window.close()
 # login()
 
+def checkinOption():
+
+    sg.theme("Darkblue1")
+    layout = [[sg.Text("Equipment Check-in",justification='center', size =(40, 2), font=16)],
+              [sg.Text("Serial Number", size=(15, 1), font=16),sg.InputText(key='-serialNum-', font=16)],
+              [sg.Text("First Name", size =(15, 1), font=16),sg.InputText(key='-empName-',font=16)],
+              [sg.Text("Last Name", size=(15, 1), font=16),sg.InputText(key='-empName-',font=16)],
+              [sg.Button('Complete Check-in', size=(17,3), font=40)]]
+    window = sg.Window("T.A.R.S. Menu - Equipment Check-in", layout,element_justification='c')
+
+    while True:
+        event,values = window.read()
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+        else:
+            if event == "Complete Check-in":
+                print("This button in the checkin option works! ")
+
+    window.close()
+
+def checkoutOption():
+
+    sg.theme("Darkblue1")
+    layout = [[sg.Text("Equipment Check-out",justification='center', size =(40, 2), font=16)],
+              [sg.Text("Serial Number", size=(15, 1), font=16),sg.InputText(key='-serialNum-', font=16)],
+              [sg.Text("First Name", size =(15, 1), font=16),sg.InputText(key='-empName-',font=16)],
+              [sg.Text("Last Name", size=(15, 1), font=16),sg.InputText(key='-empName-',font=16)],
+              [sg.Button('Complete Check-out', size=(17,3), font=40)]]
+    window = sg.Window("T.A.R.S. Menu - Equipment Check-out", layout,element_justification='c')
+
+    while True:
+        event,values = window.read()
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+        else:
+            if event == "Complete Check-out":
+                print("This button in the checkout option works! ")
+
+    window.close()
+
 def menuOption():
     sg.theme("Darkblue1")
-    layout = [[sg.Text("Main Menu", size =(40, 5), font=16)],
+    layout = [[sg.Text("Main Menu",justification='center', size =(40, 2), font=16)],
               [sg.Button('Check-In Equipment', size=(17,3), font=16)],
               [sg.Button('Check-Out Equipment', size=(17,3), font=16)],
               [sg.Button('Create Record', size=(17,3), font=40)]]
-    window = sg.Window("Menu Options", layout,element_justification='c')
+    window = sg.Window("T.A.R.S. Menu Options", layout,element_justification='c')
 
     while True:
         event,values = window.read()
@@ -71,8 +111,10 @@ def menuOption():
         else:
             if event == "Check-In Equipment":
                 print("This button works!")
+                checkinOption()
             elif event == "Check-Out Equipment":
                 print("This button works!")
+                checkoutOption()
             elif event == "Create Record":
                 print("This button works!")
 
