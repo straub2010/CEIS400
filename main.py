@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import Logs
+import Queries as q
 from datetime import datetime
 # B Ross ddd
 # This is the main file that houses all of the functionality for the GUI and application.
@@ -14,7 +15,7 @@ def inventory_log():
     print(Logs)
 
 
-inventory_log()
+# inventory_log()
 
 
 # PROGRESS BAR
@@ -67,19 +68,18 @@ def checkinOption():
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-in", justification='center', size=(40, 2), font=16)],
               [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-serialNum-', font=16)],
-              [sg.Text("First Name", size=(15, 1), font=16), sg.InputText(key='-empFName-', font=16)],
-              [sg.Text("Last Name", size=(15, 1), font=16), sg.InputText(key='-empLName-', font=16)],
+              [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-empID-', font=16)],
               [sg.Button('Complete Check-in', size=(17, 3), font=40)]]
     window = sg.Window("T.A.R.S. Menu - Equipment Check-in", layout, element_justification='c')
     while True:
         event, values = window.read()
-        firstName = values['-empFName-']
-        lastName = values['-empLName-']
+        emp_ID = values['-empID-']
         serial_Num = values['-serialNum-']
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
             if event == "Complete Check-in":
+                q.insertIntoLogsTableIn(emp_ID, serial_Num)
                 print("This button in the checkin option works! ")
 
     window.close()
@@ -89,17 +89,19 @@ def checkoutOption():
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-out", justification='center', size=(40, 2), font=16)],
               [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-serialNum-', font=16)],
-              [sg.Text("First Name", size=(15, 1), font=16), sg.InputText(key='-empName-', font=16)],
-              [sg.Text("Last Name", size=(15, 1), font=16), sg.InputText(key='-empName-', font=16)],
+              [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-empID-', font=16)],
               [sg.Button('Complete Check-out', size=(17, 3), font=40)]]
     window = sg.Window("T.A.R.S. Menu - Equipment Check-out", layout, element_justification='c')
 
     while True:
         event, values = window.read()
+        emp_ID = values['-empID-']
+        serial_Num = values['-serialNum-']
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
             if event == "Complete Check-out":
+
                 print("This button in the checkout option works! ")
 
     window.close()
