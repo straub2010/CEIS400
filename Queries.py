@@ -45,15 +45,17 @@ def insertRecord():
     print("Table was updated")
 
 
-def insertIntoLogsTableOut():
+def insertIntoLogsTableOut(emp_id, ser_num):
     now = datetime.now()
     dateAndTime = now.strftime('%m/%d/%Y %I:%M:%S %p')
+    emp_id = emp_id
+    ser_num = ser_num
     conn = pyodbc.connect(
         r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\Bishop Ross\PycharmProjects\CEIS400\BishopsDatabase.accdb;')
     cursor = conn.cursor()
     print(dateAndTime)
     cursor.execute(
-        f"INSERT INTO Checkout_Logs (TIME_LOG, LOG_TYPE, EMP_ID, SERIAL_NUM) VALUES ('{dateAndTime}','checkout', 2, 5);")
+        f"INSERT INTO Checkout_Logs (TIME_LOG, LOG_TYPE, EMP_ID, SERIAL_NUM) VALUES ('{dateAndTime}','checkout', {emp_id}, {ser_num});")
     conn.commit()
     print("Checkout Log table was updated")
 
