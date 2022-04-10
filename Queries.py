@@ -3,6 +3,9 @@ import datetime
 import pyodbc
 from datetime import datetime
 
+# Any where you see r'Driver = .....DBQ =, update the file path for the access
+# Database to the file path on your local machine to allow it to function properly and execute
+# the queries successfully
 
 def retrieve_logs():
     results = []
@@ -42,11 +45,12 @@ def insertRecord():
 
 
 def insertIntoLogsTable():
+    now = datetime.now()
+    dateAndTime = now.strftime("%d/%m/%Y %H:%M:%S")
     conn = pyodbc.connect(
         r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\Bishop Ross\PycharmProjects\CEIS400\BishopsDatabase.accdb;')
     cursor = conn.cursor()
+    cursor.execute(f'INSERT INTO Checkout_Logs (TIME_LOG, LOG_TYPE, EMP_ID, SERIAL_NUM)'
+                   f'')
 
 
-now = datetime.now()
-d1 = now.strftime("%d/%m/%Y %H:%M:%S")
-print(d1)
