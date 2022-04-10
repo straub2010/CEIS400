@@ -101,7 +101,7 @@ def checkoutOption():
             break
         else:
             if event == "Complete Check-out":
-
+                q.insertIntoLogsTableOut(emp_ID, serial_Num)
                 print("This button in the checkout option works! ")
 
     window.close()
