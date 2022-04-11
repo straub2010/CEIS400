@@ -3,7 +3,7 @@ import datetime
 import pyodbc
 from datetime import datetime
 
-
+#B
 # Any where you see r'Driver = .....DBQ =, update the file path for the access
 # Database to the file path on your local machine to allow it to function properly and execute
 # the queries successfully

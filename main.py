@@ -52,8 +52,6 @@ def login():
     window.close()
 
 
-
-
 def checkinOption():
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-in", justification='center', size=(40, 2), font=16)],
