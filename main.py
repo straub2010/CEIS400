@@ -67,6 +67,7 @@ def checkinOption():
             if event == "Complete Check-in":
                 q.insertIntoLogsTableIn(values['-empID-'], values['-serialNum-'])
                 print("This button in the checkin option works! ")
+                window.close()
 
     window.close()
 
@@ -88,7 +89,7 @@ def checkoutOption():
             if event == "Complete Check-out":
                 q.insertIntoLogsTableOut(values['-empID-'],values['-serialNum-'] )
                 print("This button in the checkout option works! ")
-
+                window.close()
 
     window.close()
 
