@@ -87,7 +87,7 @@ def checkoutOption():
             break
         else:
             if event == "Complete Check-out":
-                q.insertIntoLogsTableOut(values['-empID-'],values['-serialNum-'] )
+                q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'] )
                 print("This button in the checkout option works! ")
                 window.close()
 
@@ -97,12 +97,17 @@ def createRecordTable():
     sg.theme("Darkblue1")
     results = q.createRecord()
     heading = ['First Name', 'Last Name', 'Time', 'Status', 'Item Name']
+    counter = 0
+    for i in range(len(results)):
+        counter += 1
+    print(counter)
+
     layout = [
         [sg.Table(values=results, headings=heading,max_col_width=35,
                   auto_size_columns=True,
                   display_row_numbers=True,
                   justification='right',
-                  num_rows=20,
+                  num_rows=counter,
                   key='-record-',
                   row_height=35)]
     ]
