@@ -2,20 +2,13 @@ import PySimpleGUI as sg
 import Logs
 import Queries as q
 from datetime import datetime
+
 # B Ross ddd
 # This is the main file that houses all of the functionality for the GUI and application.
 # This file also contains the formatting code for editing how the objects and functions appear on the
 # GUI window
 username = 'Bishop Ross'
 password = 'Password'
-
-
-def inventory_log():
-    records = Logs.showLogs()
-    print(Logs)
-
-
-# inventory_log()
 
 
 # PROGRESS BAR
@@ -59,12 +52,9 @@ def login():
     window.close()
 
 
-# login()
+
 
 def checkinOption():
-    firstName = ""
-    lastName = ""
-    serial_Num = 0
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-in", justification='center', size=(40, 2), font=16)],
               [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-serialNum-', font=16)],
@@ -73,13 +63,11 @@ def checkinOption():
     window = sg.Window("T.A.R.S. Menu - Equipment Check-in", layout, element_justification='c')
     while True:
         event, values = window.read()
-        emp_ID = values['-empID-']
-        serial_Num = values['-serialNum-']
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
             if event == "Complete Check-in":
-                q.insertIntoLogsTableIn(emp_ID, serial_Num)
+                q.insertIntoLogsTableIn(values['-empID-'], values['-serialNum-'])
                 print("This button in the checkin option works! ")
 
     window.close()
@@ -95,15 +83,37 @@ def checkoutOption():
 
     while True:
         event, values = window.read()
-        emp_ID = values['-empID-']
-        serial_Num = values['-serialNum-']
+
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
             if event == "Complete Check-out":
-                q.insertIntoLogsTableOut(emp_ID, serial_Num)
+                q.insertIntoLogsTableOut(values['-empID-'],values['-serialNum-'] )
                 print("This button in the checkout option works! ")
 
+
+    window.close()
+
+def createRecordTable():
+    sg.theme("Darkblue1")
+    results = q.createRecord()
+    heading = ['First Name', 'Last Name', 'Time', 'Status', 'Item Name']
+    layout = [
+        [sg.Table(values=results, headings=heading,max_col_width=35,
+                  auto_size_columns=True,
+                  display_row_numbers=True,
+                  justification='right',
+                  num_rows=20,
+                  key='-record-',
+                  row_height=35)]
+    ]
+    window = sg.Window("Check-in/Check-out Record", layout)
+
+    while True:
+        event, values = window.read()
+
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
     window.close()
 
 
@@ -127,9 +137,10 @@ def menuOption():
                 print("This button works!")
                 checkoutOption()
             elif event == "Create Record":
+                createRecordTable()
                 print("This button works!")
 
     window.close()
 
-
+login()
 menuOption()

@@ -22,4 +22,3 @@ def showLogs():
         print(i)
 
 
-showLogs()
