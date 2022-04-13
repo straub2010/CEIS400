@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import Logs
 import Queries as q
 from datetime import datetime
+
 emp_id_setter = 0
 
 # B Ross ddd
@@ -33,17 +34,17 @@ def login():
               [sg.Text("Username", size=(15, 1), font=16), sg.InputText(key='-usrnm-', font=16)],
               [sg.Text("Password", size=(15, 1), font=16), sg.InputText(key='-pwd-', password_char='*', font=16)],
               [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-emp_id-', font=16)],
-              [sg.Button('Ok'), sg.Button('Cancel')]]
+              [sg.Button('Login')]]
 
-    window = sg.Window("Log In", layout)
+    window = sg.Window("T.A.R.S. Login", layout, enable_close_attempted_event=True)
 
     while True:
         event, values = window.read()
-        if event == "Cancel" or event == sg.WIN_CLOSED:
+        if event == sg.WIN_CLOSED:
             break
         else:
             try:
-                if event == "Ok":
+                if event == "Login":
                     check = q.loginFunction(values['-usrnm-'], values['-pwd-'], values['-emp_id-'])
                     username = check[0][1]
                     password = check[0][2]
@@ -153,6 +154,6 @@ def menuOption():
 
     window.close()
 
+
 login()
 menuOption()
-print(emp_id_setter)

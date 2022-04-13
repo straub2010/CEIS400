@@ -113,10 +113,6 @@ def loginFunction(username, password, employee_ID):
                    f"EMP_ID = {employee_ID} and USER = '{username}' and PASS = '{password}'")
     for row in cursor:
         users_info.append(list(row))
-    for i in users_info:
-        print(i)
     return users_info
 
-
-loginFunction("Bishop$RO1999", "Bishop", 2)
 
