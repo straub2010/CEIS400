@@ -9,7 +9,7 @@ from datetime import datetime
 # GUI window
 username = 'Bishop Ross'
 password = 'Password'
-# Final Version
+# Final Version 1
 
 # PROGRESS BAR
 def progress_bar():
