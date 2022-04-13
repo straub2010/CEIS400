@@ -2,13 +2,12 @@ import PySimpleGUI as sg
 import Logs
 import Queries as q
 from datetime import datetime
+emp_id_setter = 0
 
 # B Ross ddd
 # This is the main file that houses all of the functionality for the GUI and application.
 # This file also contains the formatting code for editing how the objects and functions appear on the
 # GUI window
-username = 'Bishop Ross'
-password = 'Password'
 # Final Version 1
 
 # PROGRESS BAR
@@ -28,11 +27,12 @@ def progress_bar():
 
 
 def login():
-    global username, password
+    global emp_id_setter
     sg.theme("LightBlue2")
     layout = [[sg.Text("Log In", size=(15, 1), font=16)],
               [sg.Text("Username", size=(15, 1), font=16), sg.InputText(key='-usrnm-', font=16)],
               [sg.Text("Password", size=(15, 1), font=16), sg.InputText(key='-pwd-', password_char='*', font=16)],
+              [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-emp_id-', font=16)],
               [sg.Button('Ok'), sg.Button('Cancel')]]
 
     window = sg.Window("Log In", layout)
@@ -42,12 +42,19 @@ def login():
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
-            if event == "Ok":
-                if values['-usrnm-'] == username and values['-pwd-'] == password:
-                    sg.popup("Welcome!")
-                    break
-                elif values['-usrnm-'] != username or values['-pwd-'] != password:
-                    sg.popup("Invalid login. Try again")
+            try:
+                if event == "Ok":
+                    check = q.loginFunction(values['-usrnm-'], values['-pwd-'], values['-emp_id-'])
+                    username = check[0][1]
+                    password = check[0][2]
+                    emp_id_setter = check[0][0]
+                    if values['-usrnm-'] == username and values['-pwd-'] == password:
+                        sg.popup("Welcome!")
+                        break
+                    elif values['-usrnm-'] != username or values['-pwd-'] != password:
+                        sg.popup("Invalid login. Try again")
+            except:
+                sg.popup("Invalid login. Try again")
 
     window.close()
 
@@ -148,3 +155,4 @@ def menuOption():
 
 login()
 menuOption()
+print(emp_id_setter)
