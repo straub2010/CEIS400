@@ -5,6 +5,7 @@ from datetime import datetime
 
 emp_id_setter = 0
 
+
 # B Ross ddd
 # This is the main file that houses all of the functionality for the GUI and application.
 # This file also contains the formatting code for editing how the objects and functions appear on the
@@ -34,14 +35,15 @@ def login():
               [sg.Text("Username", size=(15, 1), font=16), sg.InputText(key='-usrnm-', font=16)],
               [sg.Text("Password", size=(15, 1), font=16), sg.InputText(key='-pwd-', password_char='*', font=16)],
               [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-emp_id-', font=16)],
-              [sg.Button('Login')]]
+              [sg.Button('Login'),sg.Button('Cancel')],
+              ]
 
     window = sg.Window("T.A.R.S. Login", layout, enable_close_attempted_event=True)
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED:
-            break
+        if event == "Cancel":
+            return 0
         else:
             try:
                 if event == "Login":
@@ -95,11 +97,12 @@ def checkoutOption():
             break
         else:
             if event == "Complete Check-out":
-                q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'] )
+                q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'])
                 print("This button in the checkout option works! ")
                 window.close()
 
     window.close()
+
 
 def createRecordTable():
     sg.theme("Darkblue1")
@@ -111,7 +114,7 @@ def createRecordTable():
     print(counter)
 
     layout = [
-        [sg.Table(values=results, headings=heading,max_col_width=35,
+        [sg.Table(values=results, headings=heading, max_col_width=35,
                   auto_size_columns=True,
                   display_row_numbers=True,
                   justification='right',
@@ -134,10 +137,12 @@ def menuOption():
     layout = [[sg.Text("Main Menu", justification='center', size=(40, 2), font=16)],
               [sg.Button('Check-In Equipment', size=(17, 3), font=16)],
               [sg.Button('Check-Out Equipment', size=(17, 3), font=16)],
-              [sg.Button('Create Record', size=(17, 3), font=40)]]
+              [sg.Button('Create Record', size=(17, 3), font=40)],
+              [sg.Button('Logout', size=(17, 3), font=40)]]
     window = sg.Window("T.A.R.S. Menu Options", layout, element_justification='c')
 
     while True:
+        global emp_id_setter
         event, values = window.read()
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
@@ -151,9 +156,14 @@ def menuOption():
             elif event == "Create Record":
                 createRecordTable()
                 print("This button works!")
+            elif event == "Logout":
+                emp_id_setter = 0
+                window.close()
 
     window.close()
 
 
-login()
-menuOption()
+while True:
+    if login() == 0:
+        break
+    menuOption()
