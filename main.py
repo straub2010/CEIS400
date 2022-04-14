@@ -63,6 +63,7 @@ def login():
 
 
 def checkinOption():
+    global emp_id_setter
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-in", justification='center', size=(40, 2), font=16)],
               [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-serialNum-', font=16)],
@@ -75,14 +76,18 @@ def checkinOption():
             break
         else:
             if event == "Complete Check-in":
-                q.insertIntoLogsTableIn(values['-empID-'], values['-serialNum-'])
-                print("This button in the checkin option works! ")
-                window.close()
+                if values['-empID-'] != str(emp_id_setter):
+                    sg.popup("Please use your Employee ID")
+                else:
+                    q.insertIntoLogsTableIn(values['-empID-'], values['-serialNum-'])
+                    print("This button in the checkin option works! ")
+                    window.close()
 
     window.close()
 
 
 def checkoutOption():
+    global emp_id_setter
     sg.theme("Darkblue1")
     layout = [[sg.Text("Equipment Check-out", justification='center', size=(40, 2), font=16)],
               [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-serialNum-', font=16)],
@@ -92,14 +97,16 @@ def checkoutOption():
 
     while True:
         event, values = window.read()
-
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
             if event == "Complete Check-out":
-                q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'])
-                print("This button in the checkout option works! ")
-                window.close()
+                if values['-empID-'] != str(emp_id_setter):
+                    sg.popup("Please use your Employee ID")
+                else:
+                    q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'])
+                    print("This button in the checkout option works! ")
+                    window.close()
 
     window.close()
 
