@@ -162,9 +162,12 @@ def advancedEMPSearch():
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
-            if event == "Search":
-                createAdvRecordTable(q.createAdvancedRecordEmp(values['-fName-'], values['-lName-'], values['-date1-'],
-                                                               values['-date2-']))
+            try:
+                if event == "Search":
+                    createAdvRecordTable(q.createAdvancedRecordEmp(values['-fName-'], values['-lName-'], values['-date1-'],
+                                                                   values['-date2-']))
+            except:
+                sg.popup("Invalid search, please enter valid search parameters")
 
     window.close()
 
@@ -183,9 +186,11 @@ def advancedToolSearch():
         if event == "Cancel" or event == sg.WIN_CLOSED:
             break
         else:
-            if event == "Search":
-                createAdvRecordTable(q.createAdvancedRecordTool(values['-sNum-'], values['-date1-'], values['-date2-']))
-
+            try:
+                if event == "Search":
+                    createAdvRecordTable(q.createAdvancedRecordTool(values['-sNum-'], values['-date1-'], values['-date2-']))
+            except:
+                sg.popup("Invalid search, please enter valid search parameters")
     window.close()
 
 
