@@ -4,8 +4,9 @@ import pyodbc
 from datetime import datetime
 
 databaseConnector = pyodbc.connect(
-        r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\Bishop '
-        r'Ross\PycharmProjects\CEIS400\BishopsDatabase.accdb;')
+    r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\Bishop '
+    r'Ross\PycharmProjects\CEIS400\BishopsDatabase.accdb;')
+
 
 # B
 # Any where you see r'Driver = .....DBQ =, update the file path for the access
@@ -38,15 +39,24 @@ def updateTable(ser_num, status):
     print("Table was updated")
 
 
+tools = ["Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Scissors", "Chisel", "Pliers", "Drill", "Tape measure",
+         "Electric drill", "Circular saw", "Soldering iron", "Electric screwdriver", "Chainsaw", "Nail gun",
+         "Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Wrench", "Monkeywrench", "Chisel", "Pliers", "Hacksaw",
+         "Phillips screwdriver", "Hatchet", "Stepladder", "Toolbox"]
+
+
 def insertRecord():
+    tools = ["Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Scissors", "Chisel", "Pliers", "Drill", "Tape measure",
+             "Electric drill", "Circular saw", "Soldering iron", "Electric screwdriver", "Chainsaw", "Nail gun",
+             "Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Wrench", "Monkeywrench", "Chisel", "Pliers", "Hacksaw",
+             "Phillips screwdriver", "Hatchet", "Stepladder", "Toolbox"]
     conn = databaseConnector
     cursor = conn.cursor()
-    cursor.execute('''
-    INSERT INTO Inventory (CLEAR_LEVEL, ITEM_NAME, STATUS)
-     VALUES (3,'Buzzsaw', 1)''')
+    for i in tools:
+        cursor.execute(f"INSERT INTO Inventory (CLEAR_LEVEL, ITEM_NAME, STATUS) VALUES (3,'{i}', 0)")
     conn.commit()
     print("Table was updated")
-
+insertRecord()
 
 def insertIntoLogsTableOut(emp_id, ser_num):
     now = datetime.now()
@@ -103,6 +113,3 @@ def loginFunction(username, password, employee_ID):
     for row in cursor:
         users_info.append(list(row))
     return users_info
-
-
-

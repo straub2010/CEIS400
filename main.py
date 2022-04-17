@@ -1,12 +1,11 @@
 import PySimpleGUI as sg
-import Logs
 import Queries as q
 from datetime import datetime
 
 emp_id_setter = 0
 
 
-# B Ross ddd
+# B Ross
 # This is the main file that houses all of the functionality for the GUI and application.
 # This file also contains the formatting code for editing how the objects and functions appear on the
 # GUI window
@@ -127,9 +126,9 @@ def createRecordTable():
                   justification='right',
                   num_rows=counter,
                   key='-record-',
-                  row_height=35)]
+                  row_height=20)]
     ]
-    window = sg.Window("Check-in/Check-out Record", layout)
+    window = sg.Window("Check-in/Check-out Record", layout, location=(0,0))
 
     while True:
         event, values = window.read()
