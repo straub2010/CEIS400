@@ -11,22 +11,6 @@ emp_id_setter = 0
 # GUI window
 # Final Version 1
 
-# PROGRESS BAR
-def progress_bar():
-    sg.theme('LightBlue2')
-    layout = [[sg.Text('Creating your account...')],
-              [sg.ProgressBar(1000, orientation='h', size=(20, 20), key='progbar')],
-              [sg.Cancel()]]
-
-    window = sg.Window('Working...', layout)
-    for i in range(1000):
-        event, values = window.read(timeout=1)
-        if event == 'Cancel' or event == sg.WIN_CLOSED:
-            break
-        window['progbar'].update_bar(i + 1)
-    window.close()
-
-
 def login():
     global emp_id_setter
     sg.theme("LightBlue2")
@@ -168,9 +152,8 @@ def menuOption():
 
     window.close()
 
-########
+
 while True:
     if login() == 0:
         break
     menuOption()
-########

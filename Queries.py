@@ -29,22 +29,6 @@ def showLogs():
         print(i)
 
 
-def updateTable(ser_num, status):
-    ser_num = ser_num
-    status = status
-    conn = databaseConnector
-    cursor = conn.cursor()
-    cursor.execute('UPDATE Inventory SET STATUS = 0 WHERE SERIAL_NUM=3')
-    conn.commit()
-    print("Table was updated")
-
-
-tools = ["Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Scissors", "Chisel", "Pliers", "Drill", "Tape measure",
-         "Electric drill", "Circular saw", "Soldering iron", "Electric screwdriver", "Chainsaw", "Nail gun",
-         "Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Wrench", "Monkeywrench", "Chisel", "Pliers", "Hacksaw",
-         "Phillips screwdriver", "Hatchet", "Stepladder", "Toolbox"]
-
-
 def insertRecord():
     tools = ["Hammer", "Screwdriver", "Mallet", "Axe", "Saw", "Scissors", "Chisel", "Pliers", "Drill", "Tape measure",
              "Electric drill", "Circular saw", "Soldering iron", "Electric screwdriver", "Chainsaw", "Nail gun",
