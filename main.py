@@ -18,7 +18,7 @@ def login():
               [sg.Text("Username", size=(15, 1), font=16), sg.InputText(key='-usrnm-', font=16)],
               [sg.Text("Password", size=(15, 1), font=16), sg.InputText(key='-pwd-', password_char='*', font=16)],
               [sg.Text("Employee ID", size=(15, 1), font=16), sg.InputText(key='-emp_id-', font=16)],
-              [sg.Button('Login'),sg.Button('Cancel')],
+              [sg.Button('Login'), sg.Button('Cancel')],
               ]
 
     window = sg.Window("T.A.R.S. Login", layout, enable_close_attempted_event=True)
@@ -63,7 +63,6 @@ def checkinOption():
                     sg.popup("Please use your Employee ID")
                 else:
                     q.insertIntoLogsTableIn(values['-empID-'], values['-serialNum-'])
-                    print("This button in the checkin option works! ")
                     window.close()
 
     window.close()
@@ -88,7 +87,6 @@ def checkoutOption():
                     sg.popup("Please use your Employee ID")
                 else:
                     q.insertIntoLogsTableOut(values['-empID-'], values['-serialNum-'])
-                    print("This button in the checkout option works! ")
                     window.close()
 
     window.close()
@@ -112,7 +110,7 @@ def createRecordTable():
                   key='-record-',
                   row_height=20)]
     ]
-    window = sg.Window("Check-in/Check-out Record", layout, location=(0,0))
+    window = sg.Window("Check-in/Check-out Record", layout, location=(0, 0))
 
     while True:
         event, values = window.read()
@@ -122,13 +120,103 @@ def createRecordTable():
     window.close()
 
 
+def createAdvRecordTable(results_list):
+    sg.theme("Darkblue1")
+    results = results_list
+    heading = ['First Name', 'Last Name', 'Time', 'Status', 'Item Name']
+    counter = 0
+    for i in range(len(results)):
+        counter += 1
+
+    layout = [
+        [sg.Table(values=results, headings=heading, max_col_width=35,
+                  auto_size_columns=True,
+                  display_row_numbers=True,
+                  justification='right',
+                  num_rows=counter,
+                  key='-record-',
+                  row_height=20)]
+    ]
+    window = sg.Window("Check-in/Check-out Record", layout, location=(0, 0))
+
+    while True:
+        event, values = window.read()
+
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+    window.close()
+
+
+def advancedEMPSearch():
+    sg.theme("Darkblue1")
+    layout = [[sg.Text("Advanced Employee Record Search", justification='center', size=(40, 2), font=16)],
+              [sg.Text("Employee First Name", size=(20, 1), font=16), sg.InputText(key='-fName-', font=16)],
+              [sg.Text("Employee Last Name", size=(20, 1), font=16), sg.InputText(key='-lName-', font=16)],
+              [sg.Text("Start of Search Date", size=(20, 1), font=16), sg.InputText(key='-date1-', font=16)],
+              [sg.Text("End of Search Date", size=(20, 1), font=16), sg.InputText(key='-date2-', font=16)],
+              [sg.Button('Search', size=(17, 3), font=40)]]
+    window = sg.Window("T.A.R.S. Menu - Advanced Employee Search", layout, element_justification='c')
+
+    while True:
+        event, values = window.read()
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+        else:
+            if event == "Search":
+                createAdvRecordTable(q.createAdvancedRecordEmp(values['-fName-'], values['-lName-'], values['-date1-'],
+                                                               values['-date2-']))
+
+    window.close()
+
+
+def advancedToolSearch():
+    sg.theme("Darkblue1")
+    layout = [[sg.Text("Advanced Tool Record Search", justification='center', size=(40, 2), font=16)],
+              [sg.Text("Serial Number", size=(15, 1), font=16), sg.InputText(key='-sNum-', font=16)],
+              [sg.Text("Start of Search Date", size=(15, 1), font=16), sg.InputText(key='-date1-', font=16)],
+              [sg.Text("End of Search Date", size=(15, 1), font=16), sg.InputText(key='-date2-', font=16)],
+              [sg.Button('Search', size=(17, 3), font=40)]]
+    window = sg.Window("T.A.R.S. Menu - Advanced Tool Search", layout, element_justification='c')
+
+    while True:
+        event, values = window.read()
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+        else:
+            if event == "Search":
+                createAdvRecordTable(q.createAdvancedRecordTool(values['-sNum-'], values['-date1-'], values['-date2-']))
+
+    window.close()
+
+
+def advancedSearch():
+    sg.theme("Darkblue2")
+    layout = [[sg.Text("Advanced Record Search", justification='center', size=(40, 2), font=16)],
+              [sg.Button('Advanced Employee Search', size=(17, 3), font=40)],
+              [sg.Button('Advanced Tool Search', size=(17, 3), font=40)]]
+    window = sg.Window("T.A.R.S. Menu - Advanced Search", layout, element_justification='c')
+
+    while True:
+        event, values = window.read()
+        if event == "Cancel" or event == sg.WIN_CLOSED:
+            break
+        else:
+            if event == "Advanced Employee Search":
+                advancedEMPSearch()
+            elif event == "Advanced Tool Search":
+                advancedToolSearch()
+
+    window.close()
+
+
 def menuOption():
     sg.theme("Darkblue1")
     layout = [[sg.Text("Main Menu", justification='center', size=(40, 2), font=16)],
-              [sg.Button('Check-In Equipment', size=(17, 3), font=16)],
-              [sg.Button('Check-Out Equipment', size=(17, 3), font=16)],
-              [sg.Button('Create Record', size=(17, 3), font=40)],
-              [sg.Button('Logout', size=(17, 3), font=40)]]
+              [sg.Button('Check-In Equipment', size=(20, 3), font=16)],
+              [sg.Button('Check-Out Equipment', size=(20, 3), font=16)],
+              [sg.Button('Create Record', size=(20, 3), font=40)],
+              [sg.Button('Create Advanced Record', size=(20, 3), font=40)],
+              [sg.Button('Logout', size=(20, 3), font=40)]]
     window = sg.Window("T.A.R.S. Menu Options", layout, element_justification='c')
 
     while True:
@@ -138,14 +226,13 @@ def menuOption():
             break
         else:
             if event == "Check-In Equipment":
-                print("This button works!")
                 checkinOption()
             elif event == "Check-Out Equipment":
-                print("This button works!")
                 checkoutOption()
             elif event == "Create Record":
                 createRecordTable()
-                print("This button works!")
+            elif event == "Create Advanced Record":
+                advancedSearch()
             elif event == "Logout":
                 emp_id_setter = 0
                 window.close()

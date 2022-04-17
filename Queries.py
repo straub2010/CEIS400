@@ -40,7 +40,7 @@ def insertRecord():
         cursor.execute(f"INSERT INTO Inventory (CLEAR_LEVEL, ITEM_NAME, STATUS) VALUES (3,'{i}', 0)")
     conn.commit()
     print("Table was updated")
-insertRecord()
+
 
 def insertIntoLogsTableOut(emp_id, ser_num):
     now = datetime.now()
@@ -83,9 +83,37 @@ def createRecord():
     Inventory ON Checkout_Logs.SERIAL_NUM = Inventory.SERIAL_NUM ORDER BY Checkout_Logs.TIME_LOG DESC;''')
     for row in cursor:
         results.append(list(row))
-    for i in results:
-        print(i)
-    return (results)
+
+    return results
+
+
+def createAdvancedRecordEmp(fName, lName, date1, date2):
+    results = []
+    conn = databaseConnector
+    cursor = conn.cursor()
+    cursor.execute(f'''SELECT Employee.F_NAME, Employee.L_NAME, Checkout_Logs.TIME_LOG, Checkout_Logs.LOG_TYPE, 
+    Inventory.ITEM_NAME, Checkout_Logs.TIME_LOG, Checkout_Logs.TIME_LOG, Employee.F_NAME, Employee.L_NAME FROM (
+    Checkout_Logs INNER JOIN Employee ON Checkout_Logs.EMP_ID = Employee.EMP_ID) INNER JOIN Inventory ON 
+    Checkout_Logs.SERIAL_NUM = Inventory.SERIAL_NUM WHERE (((Checkout_Logs.TIME_LOG)>=#{date1}#) AND ((
+    Checkout_Logs.TIME_LOG)<=#{date2}#) AND ((Employee.F_NAME)='{fName}') AND ((Employee.L_NAME)='{lName}')) ORDER BY 
+    Checkout_Logs.TIME_LOG DESC;''')
+    for row in cursor:
+        results.append(list(row))
+
+    return results
+
+def createAdvancedRecordTool(sNum, date1, date2):
+    results = []
+    conn = databaseConnector
+    cursor = conn.cursor()
+    cursor.execute(f'''SELECT Employee.F_NAME, Employee.L_NAME, Checkout_Logs.TIME_LOG, Checkout_Logs.LOG_TYPE, 
+    Inventory.ITEM_NAME FROM (Checkout_Logs INNER JOIN Employee ON Checkout_Logs.EMP_ID = Employee.EMP_ID) INNER JOIN 
+    Inventory ON Checkout_Logs.SERIAL_NUM = Inventory.SERIAL_NUM WHERE (((Inventory.SERIAL_NUM)={sNum}) AND ((
+    Checkout_Logs.TIME_LOG)>=#{date1}# And (Checkout_Logs.TIME_LOG)<=#{date2}#)); ''')
+    for row in cursor:
+        results.append(list(row))
+
+    return results
 
 
 def loginFunction(username, password, employee_ID):
